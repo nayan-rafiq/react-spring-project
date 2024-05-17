@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:16.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=Lms8038Ib@S
+      - POSTGRES_DB=lms_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
