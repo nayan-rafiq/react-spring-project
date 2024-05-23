@@ -7,9 +7,9 @@ import com.example.ibas.exceptions.UsernameAlreadyUsedException;
 import com.example.ibas.repositories.LmsUserRepository;
 import com.example.ibas.repositories.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +20,9 @@ public class LmsUserService {
 
     @Autowired
     private UserAuthRepository userAuthRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<LmsUser> getAllUsers() {
         return lmsUserRepository.findAll();
@@ -40,7 +43,7 @@ public class LmsUserService {
             UserAuth userAuth = new UserAuth();
             userAuth.setLmsUser(savedLmsUser);
             userAuth.setUsername(createUserDTO.getUsername());
-            userAuth.setPasswordHash(createUserDTO.getPassword());
+            userAuth.setPasswordHash(passwordEncoder.encode(createUserDTO.getPassword()));
             userAuthRepository.save(userAuth);
 
             return savedLmsUser;
