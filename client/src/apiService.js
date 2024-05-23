@@ -1,21 +1,49 @@
-const baseUrl = "http://localhost:8080/api"
+import axios from "axios";
 
-function combineURLs(baseURL, relativeURL) {
-  return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-    : baseURL;
+const baseUrl = "http://localhost:8080/api"
+const axiosOptions = {
+  baseURL: baseUrl
+}
+
+if(localStorage.getItem('token')) {
+  axiosOptions['headers'] = {
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  }
+}
+
+const client = axios.create(axiosOptions);
+
+function errorResponseHandler(error, onError) {
+  if(error.response) {
+    if(error.response.status === 400) {
+      onError(error.response.data)
+    } else if(error.response.status === 403) {
+      if(!window.location.href.endsWith('login')) {
+        window.location.href = '/login'
+      }
+    } else {
+      console.log('unhandled exception', error)
+    }
+  }
 }
 
 export function getData(path, onSuccess) {
-  //const apiUrl = new URL(path, baseUrl).href
-  const apiUrl = combineURLs(baseUrl, path)
-  return fetch(apiUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      onSuccess(data)
+  return client.get(path)
+    .then((response) => {
+      onSuccess(response.data)
     })
     .catch((err) => {
-      console.log(err.message)
+      errorResponseHandler(err)
     })
 }
 
+export function postData(path, payload, onSuccess, onError) {
+  client
+      .post(path, payload)
+      .then((response) => {
+        onSuccess(response.data)
+      })
+      .catch((err) => {
+        errorResponseHandler(err)
+      })
+}

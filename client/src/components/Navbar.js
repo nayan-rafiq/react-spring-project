@@ -2,6 +2,11 @@ import { NavLink } from "react-router-dom"
 import './Navbar.css'
 
 function Navbar() {
+  function logout() {
+    localStorage.removeItem('token')
+    window.location.href = '/login'
+  }
+
   return (
     <header className='p-3 mb-3 border-bottom'>
       <div className='container'>
@@ -59,9 +64,9 @@ function Navbar() {
             </a>
             <ul className='dropdown-menu text-small'>
               <li>
-                <a className='dropdown-item' href='#'>
+                <button type='button' className='dropdown-item' onClick={logout}>
                   Sign out
-                </a>
+                </button>
               </li>
             </ul>
           </div>
