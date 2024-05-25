@@ -7,6 +7,10 @@ import com.example.ibas.exceptions.UsernameAlreadyUsedException;
 import com.example.ibas.repositories.LmsUserRepository;
 import com.example.ibas.repositories.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +53,18 @@ public class LmsUserService {
             return savedLmsUser;
         } else {
             throw new UsernameAlreadyUsedException();
+        }
+    }
+
+    public LmsUser getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        Optional<UserAuth> byUsername = userAuthRepository.findByUsername(userDetails.getUsername());
+        if(byUsername.isPresent()) {
+            LmsUser lmsUser = byUsername.get().getLmsUser();
+            return lmsUser;
+        } else {
+            throw new UsernameNotFoundException("User is not logged in");
         }
     }
 }

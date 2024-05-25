@@ -1,6 +1,7 @@
 package com.example.ibas.domains;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -20,7 +21,7 @@ public class UserAuth {
     private String username;
     private String passwordHash;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private LmsUser lmsUser;
 
 }

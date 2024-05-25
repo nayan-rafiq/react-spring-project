@@ -41,4 +41,10 @@ public class UserController {
     public LmsUser createUser(@RequestBody @Valid CreateUserDTO createUserDTO) {
         return lmsUserService.createLmsUser(createUserDTO);
     }
+
+    @GetMapping("me")
+    @ResponseBody
+    public LmsUser getProfile() {
+        return lmsUserService.getCurrentUser();
+    }
 }
