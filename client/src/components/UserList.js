@@ -5,8 +5,11 @@ import { getData } from "../apiService"
 
 function UserList() {
   const [users, setUsers] = useState([])
+
   useEffect(() => {
-    getData("/users", (data) => setUsers(data))
+    getData("/users", function(data) {
+      setUsers(data)
+    })
   }, [])
 
   return (
