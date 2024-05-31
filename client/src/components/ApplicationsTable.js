@@ -28,37 +28,21 @@ function ApplicationsTable(props) {
           </tr>
         </thead>
         <tbody>
+        {props.applications.map((application, i) => {
+          return(
           <tr>
-            <th scope='row'>1</th>
-            <td>Md Monsur Ali</td>
-            <td>10/10/2024</td>
-            <td>12/10/2024</td>
+            <th scope='row'>{i+1}</th>
+            <td>{application.applicant.name}</td>
+            <td>{application.fromDate}</td>
+            <td>{application.toDate}</td>
             <td>3</td>
-            <td>2/10/2024</td>
-            <td>Pending</td>
+            <td>{application.createdAt}</td>
+            <td>{application.status}</td>
             <td>
               <button type='button' className='btn btn-secondary btn-sm' onClick={showModal}>Details</button></td>
           </tr>
-          <tr>
-            <th scope='row'>2</th>
-            <td>Biplob Biswas</td>
-            <td>10/10/2024</td>
-            <td>12/10/2024</td>
-            <td>3</td>
-            <td>2/10/2024</td>
-            <td>Pending</td>
-            <td><button type='button' className='btn btn-secondary btn-sm'>Details</button></td>
-          </tr>
-          <tr>
-            <th scope='row'>3</th>
-            <td>Sabrina Sultana</td>
-            <td>10/10/2024</td>
-            <td>12/10/2024</td>
-            <td>3</td>
-            <td>2/10/2024</td>
-            <td>Pending</td>
-            <td><button type='button' className='btn btn-secondary btn-sm'>Details</button></td>
-          </tr>
+          )
+        })}
         </tbody>
       </table>
       <ApplicationDetailsModal show={showDetails} onClose={hideModal} showReviewOptions={props.showReviewOptions}></ApplicationDetailsModal>
