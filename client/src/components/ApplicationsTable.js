@@ -4,7 +4,10 @@ import { useState } from 'react'
 
 function ApplicationsTable(props) {
   const [showDetails, setShowDetails] = useState(false)
-  const showModal = () => {
+  const [selectedRow, setSelectedRow] = useState(null)
+  
+  const showModal = (application) => {
+    setSelectedRow(application)
     setShowDetails(true)
   }
 
@@ -39,13 +42,18 @@ function ApplicationsTable(props) {
             <td>{application.createdAt}</td>
             <td>{application.status}</td>
             <td>
-              <button type='button' className='btn btn-secondary btn-sm' onClick={showModal}>Details</button></td>
+              <button type='button' className='btn btn-secondary btn-sm' onClick={() => showModal(application)}>Details</button></td>
           </tr>
           )
         })}
         </tbody>
       </table>
-      <ApplicationDetailsModal show={showDetails} onClose={hideModal} showReviewOptions={props.showReviewOptions}></ApplicationDetailsModal>
+      <ApplicationDetailsModal 
+        show={showDetails} 
+        onClose={hideModal} 
+        showReviewOptions={props.showReviewOptions}
+        application={selectedRow}>
+      </ApplicationDetailsModal>
     </div>
   )
 }

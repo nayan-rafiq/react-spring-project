@@ -16,33 +16,24 @@ function ApplicationDetailsModal(props) {
             ></button>
           </div>
           <div className='modal-body'>
-            <dl className='row'>
-              <dt className='col-sm-3'>Applicant</dt>
-              <dd className='col-sm-9'>Md. Monsur Ali</dd>
+            {props.application && 
+              <dl className='row'>
+                <dt className='col-sm-3'>Applicant</dt>
+                <dd className='col-sm-9'>{props.application.applicant.name}</dd>
 
-              <dt className='col-sm-3'>Days</dt>
-              <dd className='col-sm-9'>3</dd>
+                <dt className='col-sm-3'>Days</dt>
+                <dd className='col-sm-9'>3</dd>
 
-              <dt className='col-sm-3'>From date</dt>
-              <dd className='col-sm-9'>11/10/2024</dd>
+                <dt className='col-sm-3'>From date</dt>
+                <dd className='col-sm-9'>{props.application.fromDate}</dd>
 
-              <dt className='col-sm-3'>To date</dt>
-              <dd className='col-sm-9'>13/10/2024</dd>
+                <dt className='col-sm-3'>To date</dt>
+                <dd className='col-sm-9'>{props.application.toDate}</dd>
 
-              <dt className='col-sm-3'>Purpose</dt>
-              <dd className='col-sm-9'>
-                Medical purpose
-              </dd>
-              
-              <dt className='col-sm-3'>Status</dt>
-              <dd className='col-sm-9'>Pending</dd>
-              
-              <dt className='col-sm-3'>Attachment</dt>
-              <dd className='col-sm-9'>
-                <a href='#'>NOC File</a>
-              </dd>
-              
-            </dl>
+                <dt className='col-sm-3'>Status</dt>
+                <dd className='col-sm-9'>{props.application.status}</dd>
+              </dl>
+            }
           </div>
           <div className='modal-footer'>
             <button
