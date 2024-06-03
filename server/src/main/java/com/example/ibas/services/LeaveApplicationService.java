@@ -30,12 +30,19 @@ public class LeaveApplicationService {
     }
 
     public List<LeaveApplication> getAll(Long applicantId) {
-        if(applicantId == null) {
-            return leaveApplicationRepository.findAll();
-        } else {
-            return leaveApplicationRepository.findAllByApplicantId(applicantId);
-        }
+        return leaveApplicationRepository.search(null);
+//        if(applicantId == null) {
+//            return leaveApplicationRepository.findAll();
+//        } else {
+//            return leaveApplicationRepository.findAllByApplicantId(applicantId);
+//        }
     }
 
+    public List<LeaveApplication> getAllForReview() {
+        LmsUser currentUser = lmsUserService.getCurrentUser();
+        return leaveApplicationRepository.findAllByStatusAndApplicant_SupervisorId(
+                ApplicationStatus.PENDING, currentUser.getId()
+        );
+    }
 
 }

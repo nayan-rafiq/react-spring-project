@@ -1,10 +1,11 @@
 package com.example.ibas.domains;
 
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,4 +27,7 @@ public class LmsUser {
     private String designation;
     private Date joinedAt;
     private boolean isSuperUser;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private LmsUser supervisor;
 }

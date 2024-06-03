@@ -37,4 +37,10 @@ public class LeaveApplicationController {
     public LeaveApplication create(@RequestBody LeaveApplication leaveApplication) {
         return leaveApplicationService.createLeaveApplication(leaveApplication);
     }
+
+    @ResponseBody
+    @GetMapping("review")
+    public List<LeaveApplication> getAllForReview() {
+        return leaveApplicationService.getAllForReview();
+    }
 }
