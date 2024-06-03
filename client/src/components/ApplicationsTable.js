@@ -1,5 +1,6 @@
 import ApplicationDetailsModal from './ApplicationDetailsModal'
 import { useState } from 'react'
+import moment from "moment"
 
 
 function ApplicationsTable(props) {
@@ -36,7 +37,7 @@ function ApplicationsTable(props) {
           <tr>
             <th scope='row'>{i+1}</th>
             <td>{application.applicant.name}</td>
-            <td>{application.fromDate}</td>
+            <td>{moment(application.fromDate).format("MMMM Do YYYY")}</td>
             <td>{application.toDate}</td>
             <td>3</td>
             <td>{application.createdAt}</td>
